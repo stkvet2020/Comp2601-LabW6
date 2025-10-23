@@ -1,15 +1,15 @@
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.InputMismatchException;
 
 
 public class DiaryManager2 {
+
     // Instance fields
     private int entryNbr;
     private String date;
@@ -120,28 +120,58 @@ public class DiaryManager2 {
     public boolean isEnteredSuccesfully() {
         return enteredSuccesfully;
     }
-
-    
-
-   
-
-      public static void addNewEntry(){
+      
+      public static void addNewEntry(Scanner scanner, File diaryFile){
          System.out.println("\n===Add New Entry===");
           // read file first and determine how many entries there are
           int entryCount = 0;
-          try (Scanner fileScanner = new Scanner(myFile)) {
+          // This try-catch block now correctly reads the file to count existing lines.
+          try (Scanner fileScanner = new Scanner(diaryFile)) {
             while (fileScanner.hasNextLine()) {
-              String oneline = fileScanner.nextLine();
-              // You can process the line here if needed
+              fileScanner.nextLine(); 
               entryCount++;
             }
           } catch (FileNotFoundException e) {
-              System.out.println("Error: Could not read the diary file.");
+              // This is not an error if the file is new. We can just proceed.
+              System.out.println("Notice: Diary file not found, will start with entry #1.");
+          }
+          
+          int newEntryNbr = entryCount + 1;
+          String date;
+          String diaryEntry;
+
+          // Loop until a valid date is entered
+          while (true) {
+              try {
+                  System.out.print("Enter date (YYYY-MM-DD): ");
+                  date = scanner.nextLine();
+                  validateDate(date);
+                  break; // Exit loop if validation succeeds
+              } catch (IllegalArgumentException e) {
+                  System.out.println("Invalid input: " + e.getMessage() + " Please try again.");
+              }
+          }
+
+          // Loop until a valid diary entry is entered
+          while (true) {
+              try {
+                  System.out.print("Enter diary entry (cannot be empty or contain '|'): ");
+                  diaryEntry = scanner.nextLine();
+                  validateEntry(diaryEntry);
+                  break; // Exit loop if validation succeeds
+              } catch (IllegalArgumentException e) {
+                  System.out.println("Invalid input: " + e.getMessage() + " Please try again.");
+              }
+          }
+
+          // Append the new entry to the file
+          try (FileWriter writer = new FileWriter(diaryFile, true)) { // 'true' for append mode
+              writer.write(newEntryNbr + "|" + date + "|" + diaryEntry + "\n");
+              System.out.println("Diary entry #" + newEntryNbr + " saved successfully!");
+          } catch (IOException e) {
+              System.out.println("An error occurred while writing to the file.");
               e.printStackTrace();
           }
-          System.out.println("Current number of entries: " + entryCount);
-          // continue here populating the DiaryManager object. 
-          //convert to private static methods( the methods here in main )
     }
     
 }

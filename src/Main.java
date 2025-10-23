@@ -41,7 +41,7 @@ public class Main {
                 int choice = scanner.nextInt();
                 scanner.nextLine(); // Consume the leftover newline character
 
-                if (choice == 1) {DiaryManager2.addNewEntry();}
+                if (choice == 1) {DiaryManager2.addNewEntry(scanner, myFile);}
                 else if (choice == 2) {viewAllEntries();} 
                 else if (choice == 3) {searchByDate();}
                 else if (choice == 4) {
