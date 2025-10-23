@@ -172,6 +172,40 @@ public class DiaryManager2 {
               System.out.println("An error occurred while writing to the file.");
               e.printStackTrace();
           }
-    }
-    
+    } // end of addNewEntry()
+     public static void viewAllEntries(Scanner scanner, File diaryFile){
+         System.out.println("\n=== All Diary Entries ===");
+         boolean entriesFound = false;
+        try(Scanner fileScanner = new Scanner(diaryFile)){
+            while (fileScanner.hasNextLine()) {
+                entriesFound = true;
+                String line = fileScanner.nextLine();
+                String[] parts = line.split("\\|");
+                if (parts.length == 3) {
+                    try {
+                        int entryNbr = Integer.parseInt(parts[0].trim());
+                        String date = parts[1].trim();
+                        String diaryEntry = parts[2].trim();
+                        System.out.println("------------------------------------");
+                        System.out.println("Entry #: " + entryNbr);
+                        System.out.println("Date:    " + date);
+                        System.out.println("Entry:   " + diaryEntry);
+                    } catch (NumberFormatException e) {
+                        System.out.println("------------------------------------");
+                        System.out.println("Skipping corrupted line (invalid entry number): " + line);
+                    }
+                } else {
+                    System.out.println("------------------------------------");
+                    System.out.println("Skipping corrupted line (invalid format): " + line);
+                }
+            }
+            if (!entriesFound) {
+                System.out.println("No diary entries have been added yet.");
+            } else {
+                System.out.println("------------------------------------");
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("Error: The diary file could not be found.");
+        }
+    } // end of viewAllEntries()
 }

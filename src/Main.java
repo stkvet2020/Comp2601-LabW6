@@ -42,7 +42,7 @@ public class Main {
                 scanner.nextLine(); // Consume the leftover newline character
 
                 if (choice == 1) {DiaryManager2.addNewEntry(scanner, myFile);}
-                else if (choice == 2) {viewAllEntries();} 
+                else if (choice == 2) {DiaryManager2.viewAllEntries(scanner,myFile);} 
                 else if (choice == 3) {searchByDate();}
                 else if (choice == 4) {
                     mainMenu = false;
@@ -59,8 +59,7 @@ public class Main {
     
     } // end of MainMenu()
      
-         public static void viewAllEntries(){
-         System.out.println("\nInside viewAllEntries() method");}
+         
 
          public static void searchByDate(){
          System.out.println("\nInside searchByDate() method");}
