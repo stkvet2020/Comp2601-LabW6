@@ -3,10 +3,24 @@ import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+/**
+ * The main entry point for the Personal Diary Management System application.
+ * This class is responsible for initializing the application, creating the diary file if it doesn't exist,
+ * and running the main user menu loop.
+ *
+ * @author stephan knappstein A01208242
+ * @version 1.0
+ */
 public class Main {
     private static final Scanner scanner = new Scanner(System.in);
     private static final File myFile = new File("resources" + File.separator + "diary.txt");
 
+    /**
+     * The main method that starts the application.
+     * It ensures the diary file exists and then launches the main menu.
+     *
+     * @param args Command line arguments (not used).
+     */
     public static void main(String[] args) throws Exception {
         System.out.println("Hello, World!");
         try {
@@ -25,6 +39,11 @@ public class Main {
 
       }// end of main method 
 
+    /**
+     * Displays the main menu and handles user navigation.
+     * This method runs a loop that prompts the user for a choice (1-4) and calls the
+     * corresponding static methods from the {@link DiaryManager2} class to perform actions.
+     */
     public static void mainMenu() {
          boolean mainMenu = true;
          while(mainMenu){
@@ -43,7 +62,7 @@ public class Main {
 
                 if (choice == 1) {DiaryManager2.addNewEntry(scanner, myFile);}
                 else if (choice == 2) {DiaryManager2.viewAllEntries(scanner,myFile);} 
-                else if (choice == 3) {searchByDate();}
+                else if (choice == 3) {DiaryManager2.searchByDate(scanner,myFile);}
                 else if (choice == 4) {
                     mainMenu = false;
                     System.out.println("\nThank you for using Personal Diary Management System!" + "\n Goodbye!");
@@ -61,8 +80,7 @@ public class Main {
      
          
 
-         public static void searchByDate(){
-         System.out.println("\nInside searchByDate() method");}
+        
 
        
     } // end of class 
