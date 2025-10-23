@@ -1,5 +1,4 @@
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -42,7 +41,7 @@ public class Main {
                 int choice = scanner.nextInt();
                 scanner.nextLine(); // Consume the leftover newline character
 
-                if (choice == 1) {addNewEntry();}
+                if (choice == 1) {DiaryManager2.addNewEntry();}
                 else if (choice == 2) {viewAllEntries();} 
                 else if (choice == 3) {searchByDate();}
                 else if (choice == 4) {
@@ -66,22 +65,5 @@ public class Main {
          public static void searchByDate(){
          System.out.println("\nInside searchByDate() method");}
 
-         public static void addNewEntry(){
-         System.out.println("\n===Add New Entry===");
-          // read file first and determine how many entries there are
-          int entryCount = 0;
-          try (Scanner fileScanner = new Scanner(myFile)) {
-            while (fileScanner.hasNextLine()) {
-              String oneline = fileScanner.nextLine();
-              // You can process the line here if needed
-              entryCount++;
-            }
-          } catch (FileNotFoundException e) {
-              System.out.println("Error: Could not read the diary file.");
-              e.printStackTrace();
-          }
-          System.out.println("Current number of entries: " + entryCount);
-          // continue here populating the DiaryManager object. 
-          //convert to private static methods( the methods here in main )
-    }
+       
     } // end of class 
