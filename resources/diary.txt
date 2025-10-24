@@ -1,2 +1,0 @@
-1|2025-10-23|This is the first entry.
-2|2025-10-23|This is the second entry
